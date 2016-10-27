@@ -15,6 +15,8 @@ public class SavedFilesList {
         filesList = new Properties();
     }
 
+    public Properties getFilesList(){return filesList;}
+
     public void setFile(File f){file = f;}
 
     public void addFileToList(File f){

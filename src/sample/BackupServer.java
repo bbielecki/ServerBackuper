@@ -4,23 +4,38 @@ import com.healthmarketscience.rmiio.*;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 import com.healthmarketscience.rmiio.RemoteInputStreamClient;
 
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Properties;
 
 
 public class BackupServer extends UnicastRemoteObject implements FileInterface, Serializable{
 
     private SavedFilesList savedFilesList;
-    File file = null;
-
+    private File file = null;
+    private Path path = null;
 
     public BackupServer(String ip,int port) throws RemoteException{
         super(Registry.REGISTRY_PORT);
         savedFilesList = new SavedFilesList();
+        path = Paths.get("C:\\Users\\Bartłomiej\\Desktop\\Saved Files");
+
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                //fail to create directory
+                e.printStackTrace();
+            }
+        }
 
         try{
             LocateRegistry.createRegistry(port);
@@ -72,6 +87,8 @@ public class BackupServer extends UnicastRemoteObject implements FileInterface, 
                 output.close();
                 System.out.println("Zamykam strumień...");
             }
+
+
         }
     }
 
@@ -94,6 +111,15 @@ public class BackupServer extends UnicastRemoteObject implements FileInterface, 
             return true;
         else
             return false;
+    }
+
+    @Override
+    public Properties getListOfSavedFiles() throws RemoteException {
+        return savedFilesList.getFilesList();
+    }
+
+    private void saveFileInFolder(){
+        new File(file,path.toString());
     }
 
 }
