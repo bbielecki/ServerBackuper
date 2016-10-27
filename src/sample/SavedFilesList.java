@@ -21,7 +21,7 @@ public class SavedFilesList {
 
     public void addFileToList(File f){
         filesList.setProperty(f.getName(),f.getPath());
-    }
+    } //a moze zamiast sciezki przechowywac date modyfikacji u klienta?
 
     public String getFilePath(String name){
         return filesList.getProperty(name);
