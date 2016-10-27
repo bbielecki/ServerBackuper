@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="rmiio-2.1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/Studia/OPA/rmiio-2.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Documents/Studia/OPA/rmiio-2.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
